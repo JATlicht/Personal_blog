@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView , DetailView, CreateView
+from django.views.generic import ListView , DetailView, CreateView, UpdateView
 from .models import *
 from django.urls import path, reverse
 from .forms import PostForm
@@ -19,6 +19,13 @@ class AddPost(CreateView):
     #fields=('title', 'author', 'body' )
     #fields=__all__
     form_class=PostForm
+    def get_success_url(self):
+        # Use reverse to dynamically generate the URL with the book ID
+        return reverse('articleview', kwargs={'pk': self.object.pk})
+class Updatearticlepost(UpdateView):
+    model=Post
+    template_name="updatepost.html"
+    fields=['title', 'title_tag', 'body',]
     def get_success_url(self):
         # Use reverse to dynamically generate the URL with the book ID
         return reverse('articleview', kwargs={'pk': self.object.pk})
