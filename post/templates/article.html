@@ -9,6 +9,10 @@
     <hr>
     {{ post.body }}
     <br><br>
-
+    <hr>
+    {{post.post_time}}{{post.post_date}}
+    
+    <br><br>
+    
     <a href="{% url 'home' %}"><button type="button" class="btn btn-dark">Back</button></a>
     {% endblock %}
