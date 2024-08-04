@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}Add Post{% endblock %}
-
-{% if user.is_authenticated %}
+{% block title %}Login{% endblock %}
 {% block content %}
-    <h1>Add Post</h1>
+    <h1>Login User</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
@@ -11,6 +9,3 @@
         
     </form>
     {% endblock %}
-{% else %}
-You are not authorized . please Register or login !! 
-{% endif %}

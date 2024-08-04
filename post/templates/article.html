@@ -6,6 +6,10 @@
     <h1>{{ post.title_tag }}</h1>
     <small> -By {{ post.author.first_name }} {{ post.author.last_name }} </small> <br>
     <small>reach out at : {{post.author.email}}</small>
+    {% if user.is_authenticated %}
+-<a href="{% url 'updatepost' post.id %}">(Edit)</a>--<a href="{% url 'deletepost' post.id %}">Delete</a><br> 
+
+{% endif %}
     <hr>
     {{ post.body }}
     <br><br>

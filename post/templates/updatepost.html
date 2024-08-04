@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %} Edit post {% endblock %}
+{% if user.is_authenticated %}
 {% block content %}
 <h1>Edit Post</h1>
 <form method="POST">
@@ -8,3 +9,4 @@
 <button type="submit" class="btn btn-dark">Edit</button>
 </form>
 {% endblock %}
+{% endif %}
