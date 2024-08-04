@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% block title %} Edit post {% endblock %}
-{% if user.is_authenticated %}
+
 {% block content %}
+{% if user.is_authenticated and post.author == user%}
 <h1>Edit Post</h1>
 <form method="POST">
 {% csrf_token %}
 {{ form.as_p }}
 <button type="submit" class="btn btn-dark">Edit</button>
 </form>
-{% endblock %}
+{% else %} Wait .. You are not authorised Bitch .. are you ?
 {% endif %}
+
+{% endblock %}
