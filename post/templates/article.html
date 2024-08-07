@@ -15,14 +15,26 @@
     {{ post.body }}
     <br><br>
     <hr>
+    
     {{post.post_time}}{{post.post_date}}
+    <br>
+    {% if user.is_authenticated %}
+    {% if liked %}
     
-    <br><br>
-    <form action="{% url 'like_post' post.id %}" method="POST">
-        {% csrf_token %}
-    <button type="submit" class="btn btn-primary" name="post_like" value="{{post.id}}">Like</button> -- {{total_likes}} Likes
-    </form>
+        <form action="{% url 'like_post' post.id %}" method="POST">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-danger" name="post_like" value="{{post.id}}">Unike</button> -- {{total_likes}} Likes
+        </form>
+    {% else %}
+        <form action="{% url 'like_post' post.id %}" method="POST">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-primary" name="post_like" value="{{post.id}}">Like</button> -- {{total_likes}} Likes
+        </form>
+    {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary">Like</a> -- {{total_likes}} Likes
+    {% endif %}
     <br><br>
     
-    <a href="{% url 'home' %}"><button type="button" class="btn btn-dark">Back</button></a>
+    <a href="{% url 'home' %}" ><button type="button" class="btn btn-dark">Back</button></a>
     {% endblock %}

@@ -21,7 +21,13 @@ class Homeview(ListView):
 
 def likepost(request, pk):
     post=get_object_or_404(Post, id=request.POST.get('post_like'))
-    post.likes.add(request.user)
+    like=False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        like=False
+    else :
+        post.likes.add(request.user)
+        like=True
     return HttpResponseRedirect(reverse('articleview' , args=[str(pk)]))
 
 def sortbycategory(request, cat):
@@ -35,9 +41,13 @@ class Detailedarticle(DetailView):
         cat_menu=Category.objects.all()
         obj=get_object_or_404(Post, id=self.kwargs["pk"])
         total_likes=obj.total_likes()
+        liked=False
+        if obj.likes.filter(id=self.request.user.id).exists():
+            liked=True
         context=super(Detailedarticle, self).get_context_data( *args, **kwargs)
         context["cat_menu"]=cat_menu
         context["total_likes"]=total_likes
+        context["liked"]=liked
         return context
 
 
