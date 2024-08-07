@@ -22,12 +22,16 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'addpost' %}">Add Post</a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'addcategory' %}">Add Category</a>
+                </li>
+
                 <li class="nav-item">
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="nav-link">Logout</button>
                 </form>
-                  
                 </li>
                 
                 
@@ -37,20 +41,24 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
+
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Log in</a>
                 </li>
 
-
             {% endif %}
 
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+              </a>
+              <ul class="dropdown-menu">
+                {% for item in cat_menu %}
+                <li><a class="dropdown-item" href="{% url 'categorypost' item %}">{{item}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
 
-             
-              
-              
-                
-              
-             
             </ul>
             
           </div>

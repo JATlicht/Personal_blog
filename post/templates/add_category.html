@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Add Category{% endblock %}
+
+{% if user.is_authenticated %}
+{% block content %}
+    <h1>Add Post</h1>
+    <form method="POST" class="form-control">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-dark">Post</button>
+        
+    </form>
+    {% endblock %}
+{% else %}
+You are not authorized . please Register or login !! 
+{% endif %}

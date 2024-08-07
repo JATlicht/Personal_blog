@@ -8,6 +8,7 @@
     <small>reach out at : {{post.author.email}}</small>
     {% if user.is_authenticated and post.author == user %}
 -<a href="{% url 'updatepost' post.id %}">(Edit)</a>--<a href="{% url 'deletepost' post.id %}">Delete</a><br> 
+#{{post.category}} <br>
 
 {% endif %}
     <hr>
@@ -16,6 +17,11 @@
     <hr>
     {{post.post_time}}{{post.post_date}}
     
+    <br><br>
+    <form action="{% url 'like_post' post.id %}" method="POST">
+        {% csrf_token %}
+    <button type="submit" class="btn btn-primary" name="post_like" value="{{post.id}}">Like</button> -- {{total_likes}} Likes
+    </form>
     <br><br>
     
     <a href="{% url 'home' %}"><button type="button" class="btn btn-dark">Back</button></a>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block title%}
+{{post.category}}
+{% endblock %}
+
+
+{% block content %}
+    {% if category_objects %}
+        <h1>{{cats}}</h1>
+        {% for post in category_objects %}
+            <hr>
+            <a href="{% url 'articleview' post.id %}">{{post.title}}</a>-{{post.author}} 
+            --#{{post.category}} --
+            {% if user.is_authenticated and post.author == user %}
+            -<a href="{% url 'updatepost' post.id %}">(Edit)</a>--<a href="{% url 'deletepost' post.id %}">Delete</a>
+            {% endif %}
+            <br> 
+            Title :-{{post.title_tag}} <br>
+            Body:-{{post.body| slice:":100"}} ...
+            <hr>
+        {% endfor %}
+    {% else %}
+        Sorry the requested page doesn't exist ...
+    {% endif %}
+{% endblock %}

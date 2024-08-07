@@ -1,8 +1,9 @@
-from django.shortcuts import render
+
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.views.generic import ListView , DetailView, CreateView, UpdateView, DeleteView
 from .models import *
 from django.urls import path, reverse
-from .forms import PostForm, UpdateForm
+from .forms import PostForm, UpdateForm, CategoryForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -12,10 +13,32 @@ class Homeview(ListView):
     model= Post
     template_name='index.html'
     ordering='-id'
+    def get_context_data(self, *args, **kwargs):
+        cat_menu=Category.objects.all()
+        context=super(Homeview, self).get_context_data( *args, **kwargs)
+        context["cat_menu"]=cat_menu
+        return context
+
+def likepost(request, pk):
+    post=get_object_or_404(Post, id=request.POST.get('post_like'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('articleview' , args=[str(pk)]))
+
+def sortbycategory(request, cat):
+    category_objects=Post.objects.filter(category=cat.replace('-',' '))
+    return render(request, 'sortbycategory.html', {'cats':cat.title().replace('-',' '), 'category_objects':category_objects,})
 
 class Detailedarticle(DetailView):
     model= Post
     template_name='article.html'
+    def get_context_data(self, *args, **kwargs):
+        cat_menu=Category.objects.all()
+        obj=get_object_or_404(Post, id=self.kwargs["pk"])
+        total_likes=obj.total_likes()
+        context=super(Detailedarticle, self).get_context_data( *args, **kwargs)
+        context["cat_menu"]=cat_menu
+        context["total_likes"]=total_likes
+        return context
 
 
 class AddPost(CreateView, LoginRequiredMixin):
@@ -35,7 +58,17 @@ class AddPost(CreateView, LoginRequiredMixin):
     def get_success_url(self):
         # Use reverse to dynamically generate the URL with the book ID
         return reverse('articleview', kwargs={'pk': self.object.pk})
+
+class AddCategory(CreateView):
     
+    model=Category
+    template_name="add_category.html"
+    #fields=('title', 'author', 'body' )
+    #fields=__all__
+    form_class=CategoryForm
+    def get_success_url(self):
+        
+        return reverse('addpost')
 
 class Updatearticlepost(UpdateView):
     model=Post
