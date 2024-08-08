@@ -10,5 +10,6 @@ urlpatterns = [
     path('updatepost/<int:pk>', Updatearticlepost.as_view(),name='updatepost' ),
     path('deletetepost/<int:pk>', Deletepost.as_view(),name='deletepost' ),
     path('category/<str:cat>', sortbycategory, name="categorypost"),
-    path('likes/<int:pk>', likepost, name='like_post')
+    path('likes/<int:pk>', likepost, name='like_post'),
+    
 ]

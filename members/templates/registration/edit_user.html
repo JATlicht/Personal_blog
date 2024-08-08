@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}Add Post{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
 {% if user.is_authenticated %}
 {% block content %}
-    <h1>Add Post</h1>
+    <h1>Edit user</h1>
     <form method="POST">
         {% csrf_token %}
-        {{form.media}}
+        
         {{ form.as_p }}
-        <button type="submit" class="btn btn-dark">Post</button>
+        <button type="submit" class="btn btn-dark">Edit</button>
         
     </form>
     {% endblock %}

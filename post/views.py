@@ -7,6 +7,7 @@ from .forms import PostForm, UpdateForm, CategoryForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 # Create your views here.
 
 class Homeview(ListView):

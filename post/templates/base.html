@@ -24,13 +24,21 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'addcategory' %}">Add Category</a>
+                  <a class="nav-link" href="{% url 'resetpassword' %}">Add Category</a>
                 </li>
 
                 <li class="nav-item">
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="nav-link">Logout</button>
+                </form>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'resetpassword' %}">Reset Password</a>
+                </li>
+                <li class="nav-item">
+                  <form method="post" action="{% url 'edituser' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link">Edit Profile</button>
                 </form>
                 </li>
                 

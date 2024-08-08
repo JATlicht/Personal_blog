@@ -3,6 +3,7 @@ from .models import Post, Category
 from django.forms import ModelChoiceField
 
 
+
 class PostForm(forms.ModelForm):
     category = ModelChoiceField(queryset=Category.objects.all())
     
@@ -37,4 +38,6 @@ class CategoryForm(forms.ModelForm):
             'categry':forms.TextInput(attrs={'class':'form-control'}),
             
         }
+
+
 

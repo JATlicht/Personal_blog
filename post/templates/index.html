@@ -15,7 +15,7 @@
         {% endif %}
         <br> 
         Title :-{{post.title_tag}} <br>
-        Body:-{{post.body| slice:":100"}} ...
+        Body:-{{post.body| slice:":100"|safe}} ...
         <hr>
     {% endfor %}
 {% endblock %}
